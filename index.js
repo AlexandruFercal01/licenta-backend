@@ -4,7 +4,7 @@ const userRoutes = require("./routes/users");
 const greenhouseRoute = require("./routes/greenhouse");
 
 app.use(express.json());
-app.use("/users", userRoutes);
+app.use("/", userRoutes);
 app.use("/greenhouse", greenhouseRoute);
 
 app.listen(3001, () => {

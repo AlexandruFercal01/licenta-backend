@@ -23,7 +23,7 @@ function receiveFeedback(err, receiver) {
   });
 }
 
-function sendCloudToDeviceMessage(message, res) {
+function sendCloudToDeviceMessage(message) {
   serviceClient.open(function (err) {
     if (err) {
       console.error("Could not connect: " + err.message);
@@ -34,7 +34,6 @@ function sendCloudToDeviceMessage(message, res) {
       var msg = new Message(message);
       console.log("Sending message: " + msg.getData());
       serviceClient.send(targetDevice, msg);
-      res.sendStatus(200);
     }
   });
 }
