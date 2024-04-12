@@ -11,16 +11,16 @@ router.post("/login", async (req, res) => {
     const loggedUser = await user.getUser(email);
     console.log(loggedUser);
     if (!user) {
-      return res.status(401).json({ error: "Inexistent user" });
+      return res.status(401).json({ error: "Utilizator inexistent" });
     }
     const passwordMatch = await bcrypt.compare(password, loggedUser.password);
     if (!passwordMatch) {
-      return res.status(401).json({ error: "Authentication failed" });
+      return res.status(401).json({ error: "Autentificare nereusita" });
     }
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "12h",
     });
-    res.status(200).json({ token });
+    res.status(200).json({ token, email });
   } catch (error) {
     res.status(500).json({ error: "Login failed" });
   }
