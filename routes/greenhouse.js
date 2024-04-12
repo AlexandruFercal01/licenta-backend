@@ -8,6 +8,7 @@ const {
 } = require("../views/todaySensorsData");
 const getWeeklySensorsData = require("../views/weeklySensorsData");
 const getMonthlySensorsData = require("../views/monthlySensorsData");
+const { getIO } = require('../views/socket');
 
 function sendMessage(req, res) {
   try {
@@ -21,6 +22,7 @@ function sendMessage(req, res) {
 router.get("/latestValue", verifyToken, async (req, res) => {
   try {
     const data = await getLatestValue();
+    console.log(data);
     res.status(200).json(data);
   } catch {
     res.status(500).json({ error: "Datele nu au putut fi preluate!" });
