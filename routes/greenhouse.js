@@ -12,45 +12,45 @@ const getMonthlySensorsData = require("../views/monthlySensorsData");
 function sendMessage(req, res) {
   try {
     sendCloudToDeviceMessage(JSON.stringify(req.body));
-    res.sendStatus(200).json({ message: "Command sent successfully" });
+    res.sendStatus(200).json({ message: "Comanda trimisa cu succes!" });
   } catch (err) {
-    res.status(500).json({ error: "Command failed" });
+    res.status(500).json({ error: "Mesajul nu a putut fi trimis!" });
   }
 }
 
-router.get("/latestValue", verifyToken, (req, res) => {
+router.get("/latestValue", verifyToken, async (req, res) => {
   try {
-    const data = getLatestValue();
+    const data = await getLatestValue();
     res.status(200).json(data);
   } catch {
-    res.status(500).json({ error: "Command failed" });
+    res.status(500).json({ error: "Datele nu au putut fi preluate!" });
   }
 });
 
-router.get("/todayData", verifyToken, (req, res) => {
+router.get("/todayData", verifyToken, async (req, res) => {
   try {
-    const data = getTodaySensorsData();
+    const data = await getTodaySensorsData();
     res.status(200).json(data);
   } catch {
-    res.status(500).json({ error: "Command failed" });
+    res.status(500).json({ error: "Datele nu au putut fi preluate!" });
   }
 });
 
-router.get("/weeklyData", verifyToken, (req, res) => {
+router.get("/weeklyData", verifyToken, async (req, res) => {
   try {
-    const data = getWeeklySensorsData();
+    const data = await getWeeklySensorsData();
     res.status(200).json(data);
   } catch {
-    res.status(500).json({ error: "Command failed" });
+    res.status(500).json({ error: "Datele nu au putut fi preluate!" });
   }
 });
 
-router.get("/monthlyData", verifyToken, (req, res) => {
+router.get("/monthlyData", verifyToken, async (req, res) => {
   try {
-    const data = getMonthlySensorsData();
+    const data = await getMonthlySensorsData();
     res.status(200).json(data);
   } catch {
-    res.status(500).json({ error: "Command failed" });
+    res.status(500).json({ error: "Datele nu au putut fi preluate!" });
   }
 });
 

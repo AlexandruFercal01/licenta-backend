@@ -7,8 +7,13 @@ const tableClient = TableClient.fromConnectionString(
   "weeklySensorsData"
 );
 
-function getWeeklySensorsData() {
-  return tableClient.listEntities();
+async function getWeeklySensorsData() {
+  const result = [];
+  const entities = await tableClient.listEntities();
+  for await (entity of entities) {
+    result.push(entity);
+  }
+  return result;
 }
 
 module.exports = getWeeklySensorsData;

@@ -7,8 +7,13 @@ const tableClient = TableClient.fromConnectionString(
   "monthlySensorsData"
 );
 
-function getMonthlySensorsData() {
-  return tableClient.listEntities();
+async function getMonthlySensorsData() {
+  const result = [];
+  const entities = await tableClient.listEntities();
+  for await (entity of entities) {
+    result.push(entity);
+  }
+  return result;
 }
 
 module.exports = getMonthlySensorsData;

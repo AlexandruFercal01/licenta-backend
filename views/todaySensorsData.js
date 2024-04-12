@@ -7,14 +7,21 @@ const tableClient = TableClient.fromConnectionString(
   "todaySensorsData"
 );
 
-function getTodaySensorsData() {
-  return tableClient.listEntities();
+async function getTodaySensorsData() {
+  const result = [];
+  const entities = await tableClient.listEntities();
+  for await (entity of entities) {
+    result.push(entity);
+  }
+  return result;
 }
 
-function getLatestValue() {
-  const results = getTodaySensorsData();
+async function getLatestValue() {
+  const results = await getTodaySensorsData();
   results.sort((a, b) => {
-    b.timestamp - a.timestamp;
+    let dateA = new Date(a.timestamp);
+    let dateB = new Date(b.timestamp);
+    return dateB - dateA;
   });
   return results[0];
 }
