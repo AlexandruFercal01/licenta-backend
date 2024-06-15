@@ -24,13 +24,13 @@ io.on('connection', (socket) => {
 const sendNotification = async () =>{
   const io = socketInit.getIO();
   const sensorsValue = await getLatestValue();
-  if(sensorsValue.temperature > 29){
+  if(Number.parseFloat(sensorsValue?.temperature) > 30){
     io.emit('sensorAlert', {
       title: 'Temperatura ridicata',
-      message: 'Se recomanda pornirea ventilatoarelor sau deschiderea panoului lateral pentru temperaturi care depasesc 29 de grade Celsius.',
+      message: `Se recomanda pornirea ventilatoarelor sau deschiderea panoului lateral pentru temperaturi care depasesc ${sensorsValue.temperature} de grade Celsius.`,
     });
   }
-  if(sensorsValue.soil_humidity < 20){
+  if(sensorsValue?.soil_humidity < 20){
     io.emit('sensorAlert', {
       title: 'Umiditate in sol scazuta',
       message: 'Se recomanda pornirea pompei de apa.',
@@ -40,7 +40,7 @@ const sendNotification = async () =>{
 
 setInterval(()=>{
  sendNotification();
-}, 15000);
+}, 5000);
 
 app.use(cors());
 app.use(express.json());
