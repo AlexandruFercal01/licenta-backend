@@ -7,7 +7,7 @@ This is my diploma project. This part represents the backend for an IoT app, whe
 
 ## Tech Stack
 
-**Client:** Node.js, Express 
+**Server:** Node.js, Express 
 
 
 ## Run Locally
